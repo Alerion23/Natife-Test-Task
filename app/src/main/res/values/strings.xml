@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">Natife Test Task</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="gif_list_fragment">Gif list fragment</string>
+    <string name="selected_gif_fragment">Selected gif fragment</string>
+    <string name="title">TITLE</string>
+    <string name="something_went_wrong">Something went wrong</string>
 </resources>
