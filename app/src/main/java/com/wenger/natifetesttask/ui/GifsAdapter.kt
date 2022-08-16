@@ -4,21 +4,25 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.wenger.natifetesttask.R
 import com.wenger.natifetesttask.model.GifResponse
 
 class GifsAdapter(
     private val clickListener: IOnGifsClickListener
-) : RecyclerView.Adapter<GifsAdapter.MyViewHolder>() {
+) : ListAdapter<GifResponse, GifsAdapter.MyViewHolder>(GifsDiffCallback()) {
 
-    private val data = mutableListOf<GifResponse>()
+    class GifsDiffCallback : DiffUtil.ItemCallback<GifResponse>() {
+        override fun areItemsTheSame(oldItem: GifResponse, newItem: GifResponse): Boolean {
+            return oldItem.id == newItem.id
+        }
 
-    fun addRandomGifs(newRandomGifs: List<GifResponse>) {
-        data.addAll(newRandomGifs)
-        notifyItemRangeInserted(data.size + 1, newRandomGifs.size)
+        override fun areContentsTheSame(oldItem: GifResponse, newItem: GifResponse): Boolean {
+            return areItemsTheSame(oldItem, newItem)
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
@@ -29,12 +33,8 @@ class GifsAdapter(
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        val data = data[position]
-        holder.onBind(data)
+        holder.onBind(getItem(position))
     }
-
-    override fun getItemCount(): Int = data.size
-
 
     class MyViewHolder(
         itemView: View,
