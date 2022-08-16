@@ -28,7 +28,6 @@ class GifListFragment : Fragment(R.layout.fragment_gif_list) {
         override fun onGifsClick(url: String) {
             val directions = GifListFragmentDirections.goToSelectedGifFragment(url)
             findNavController().navigate(directions)
-
         }
     }
 
@@ -65,7 +64,7 @@ class GifListFragment : Fragment(R.layout.fragment_gif_list) {
     }
 
     private fun showRandomGifs(gifs: TrendingGifResponse) {
-        gifsAdapter?.addRandomGifs(gifs.data)
+        gifsAdapter?.submitList(gifs.data)
     }
 
     override fun onDestroyView() {
